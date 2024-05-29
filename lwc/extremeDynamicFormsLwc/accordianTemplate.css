@@ -1,0 +1,68 @@
+.edf-sectionborder{
+    border:1px solid #ccc;
+}
+
+.edf-hide{
+    display:none;
+    animation: fadein 14s;
+}
+
+.edf-image-wrapper{
+    text-align: center;
+    padding: 10px;
+}
+
+
+.record-body-container{
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.16);
+    border-radius: 0.25rem!important;
+}
+
+.slds-form__item{
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+    min-width: auto!important;
+}
+
+
+.stickyFooter{
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+}
+
+.slds-docked-form-footer {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0;
+    /*position: relative;*/
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--slds-g-color-neutral-base-95, var(--lwc-colorBackground,rgb(243, 243, 243)));
+    box-shadow: 0 -2px 2px 0 rgba(0, 0, 0, 0.16);
+    z-index: 90;
+}
+
+.edf-hide{
+    height: 0px;
+    opacity: 0;
+    display: block;
+    -webkit-transition: opacity 2s ease;
+    -moz-transition: opacity 2s ease;
+    -ms-transition: opacity 2s ease;
+    -o-transition: opacity 2s ease;
+    transition: opacity 2s ease;
+   }
+   
+.edf-show{
+    height: auto;
+    opacity: 1;
+    -webkit-transition: opacity 2s ease;
+    -moz-transition: opacity 2s ease;
+    -ms-transition: opacity 2s ease;
+    -o-transition: opacity 2s ease;
+    transition: opacity 2s ease;
+}

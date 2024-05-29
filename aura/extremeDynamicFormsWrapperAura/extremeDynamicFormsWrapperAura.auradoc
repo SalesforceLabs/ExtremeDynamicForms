@@ -1,0 +1,6 @@
+<aura:documentation>
+	<aura:description>Documentation</aura:description>
+	<aura:example name="EDF Aura" ref="extremeDynamicFormsLwc" label="Extreme Dynamic Forms Aura">
+		Wrapper component to expose extremeDynamicFormsLwc to Experience Cloud
+	</aura:example>
+</aura:documentation>

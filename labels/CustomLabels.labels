@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>EDF_Cancel_Button_Label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDF Cancel Button Label</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>EDF_Edit_Button_Label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDF Edit Button Label</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>EDF_Save_Button_Label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDF Save Button Label</shortDescription>
+        <value>Save</value>
+    </labels>
+</CustomLabels>

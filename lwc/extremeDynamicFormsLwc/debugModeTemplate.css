@@ -1,0 +1,134 @@
+.edf-sectionborder{
+    border:1px solid #ccc;
+}
+
+.edf-hide{
+    display:none;
+    animation: fadein 14s;
+}
+
+.edf-image-wrapper{
+    text-align: center;
+    padding: 10px;
+}
+
+.edf-badge{
+    font-size: 9px;
+    margin: 10px 0 10px 0;
+}
+
+a.edf-debuglink:link {
+    text-decoration: none;
+    color:white;
+}
+
+a.edf-debuglink:visited {
+    text-decoration: none;
+    color:white;
+}
+
+a.edf-debuglink:hover {
+    text-decoration: none;
+    color:white;
+}
+
+a.edf-debuglink:active {
+    text-decoration: none;
+    color:white;
+}
+
+.edf-debug-gear{
+    margin: 5px;
+    border: none;
+    text-align: center;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 3px
+}
+
+.edf-debug-gears{
+    float: right;
+    width: 500px;
+    position: absolute;
+    background-color: white;
+    z-index: 80;
+    border: 1px solid #d5d5d5;
+    border-radius: 5px;
+    text-align: center;
+    padding: 30px 0 30px 0;
+}
+
+.record-body-container{
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.16);
+    border-radius: 0.25rem!important;
+}
+
+.slds-form__item{
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+    min-width: auto!important;
+
+}
+
+.stickyFooter{
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+}
+
+.edf-section{
+    border: 1px dotted #ccc;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.slds-hide{
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    /* width: 100px; */
+    /* height: 100px; */
+    background-color: #fffcfc;
+    display: block!important;
+}
+
+
+.slds-docked-form-footer {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0;
+    /*position: relative;*/
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--slds-g-color-neutral-base-95, var(--lwc-colorBackground,rgb(243, 243, 243)));
+    box-shadow: 0 -2px 2px 0 rgba(0, 0, 0, 0.16);
+    z-index: 90;
+}
+
+.edf-hide{
+    height: 0px;
+    opacity: 0;
+    display: block;
+    -webkit-transition: opacity 2s ease;
+    -moz-transition: opacity 2s ease;
+    -ms-transition: opacity 2s ease;
+    -o-transition: opacity 2s ease;
+    transition: opacity 2s ease;
+   }
+   
+.edf-show{
+    height: auto;
+    opacity: 1;
+    -webkit-transition: opacity 2s ease;
+    -moz-transition: opacity 2s ease;
+    -ms-transition: opacity 2s ease;
+    -o-transition: opacity 2s ease;
+    transition: opacity 2s ease;
+}

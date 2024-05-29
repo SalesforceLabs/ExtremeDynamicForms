@@ -1,0 +1,17 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,flexipage:availableForAllPageTypes,lightning:isUrlAddressable,force:hasRecordId" access="global">
+
+    <aura:attribute access="global" name="formversion" type="String" required="true"/>
+    <aura:attribute access="global" name="usecustomtemplate" type="Boolean" required="false" default="false"/>
+    <aura:attribute access="global" name="debugmode" type="Boolean" required="false" default="false"/>
+    <aura:attribute access="global" name="usercontextclass" type="String" required="false"/>
+    
+    <c:extremeDynamicFormsLwc 
+        formversion="{!v.formversion}" 
+        usecustomtemplate="{!v.usecustomtemplate}"  
+        recordId="{!v.recordId}"
+        debugmode="{!v.debugmode}"
+        usercontextclass="{!v.usercontextclass}"
+        invokedfromexperience = "true"
+    />
+
+</aura:component>

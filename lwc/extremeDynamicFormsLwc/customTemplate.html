@@ -1,0 +1,371 @@
+<!-- sldsValidatorIgnore -->
+
+<!-- slds-form-element_readonly for horizontal line on lightning output field-->
+<template>
+   
+    <div class="record-body-container">
+        <div class="record-layout-container">
+            <lightning-card  title="">
+
+                
+                <template if:true={formnotready}>
+
+                    <div class="edf-image-wrapper">
+                        <img style="max-height: 400px" alt="Building the Extreme Dynamic Forms" src={dynamicFormBuildingImage}/>
+                    </div>
+            
+                </template>
+
+                <template if:true={decisionenginefailed}>
+
+                    <div class="edf-image-wrapper">
+                        
+                        <div class="slds-notify slds-notify_alert slds-alert_warning" role="alert">
+                            <span class="slds-assistive-text">warning</span>
+                            <span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small" title="Description of icon when needed">
+                                <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                    <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#warning"></use>
+                                </svg>
+                            </span>
+                            <h2><lightning-formatted-rich-text value={errorMessage}></lightning-formatted-rich-text>.
+                                <!--
+                                <a href="#">More Information</a>
+                                -->
+                            </h2>
+                            
+                        </div>
+                        <img style="max-height: 400px" alt="Decison Engine Failed" src={dynamicFormBuildingFailedImage}/>
+                    </div>
+            
+                </template>
+
+                <template if:true={renderform}>
+                    <div class="recordgears">
+                        <template for:each={finalRecord} for:item="record">
+                            <input data-id={record.cleankey} data-recgearkey={record.key} key={record.key} value={record.value} class="recordgear" type="hidden"/>
+                        </template>
+                    </div>
+
+
+                    <!--=============================  EDIT MODE =============================-->
+
+                    <template if:true={editmode}>
+                        <lightning-record-edit-form object-api-name={currentRecordName} record-id={recordId} onerror={handleError} onsuccess={handleSuccess}>
+                            <template for:each={data.definition} for:item="section">
+
+                                <!-- =============================================== S E C T I O N     D I V    S T A R T =============================================== -->
+                                
+                                
+
+                                <div key={section.Id} class="slds-p-around_medium" data-edfcontainer={section.Name} data-toggle={section.edf__Container_Key__c}> <!-- CONTAINER HTML START -->
+
+                                    <div class="slds-section slds-is-open"> <!--+++++++ Custom Section Wrapper +++++++-->
+                                        <h3 class="slds-section__title slds-theme_shade">
+                                            <span class="slds-truncate slds-p-horizontal_small" title={section.edf__Title__c}>{section.edf__Title__c}</span>
+                                        </h3>
+                                        <div aria-hidden="false" class="slds-section__content"> <!--+++++++ Custom Section Wrapper +++++++-->
+                                    
+                                            <!--
+                                            <p>Title: {section.edf__Title__c}</p>
+                                            <p>Container Sequence:{section.edf__Container_Sequence__c}</p>
+                                            -->
+
+                                            <template if:true={section.edf__Decision_Expression__c}>
+                                                <input 
+                                                    data-gearid={section.edf__Container_Key__c}
+                                                    data-fieldapi={section.edf__Container_Key__c}
+                                                    data-expression={section.edf__Decision_Expression__c}
+                                                    class="decisiongear" 
+                                                    type="hidden"
+                                                />
+                                            </template>
+                                        
+                                            <div class="slds-grid slds-wrap slds-gutters"> <!-- COLUMN WRAPPER HTML START -->
+                                                <template for:each={section.columns} for:item="column">
+                                                    <div key={column.columnkey} class={section.colsclass}> <!-- COLUMN HTML START -->
+                                                        <template if:true={column.records}>
+                                                            <template for:each={column.records} for:item="form_element">
+                                                                <div key={form_element.Id} data-edfelement={form_element.Name} data-toggle={form_element.edf__Form_Element_Key__c}> <!-- FORM ELEMENT HTML START -->
+
+                                                                <template if:false={form_element.edf__Read_Only__c}>
+                                                                    <template if:false={form_element.edf__HTML_Snippet__c}>
+                                                                        <template if:true={form_element.hascustomlabel}>   
+                                                                            <template if:false={form_element.edf__Hidden__c}>
+                                                                                <div class="slds-form-element" style="padding: 5px 0px 5px 3px">
+                                                                                    <template if:true={form_element.edf__Field_API_Name__c}>
+                                                                                        <label class="slds-form-element__label slds-no-flex" for={form_element.edf__Field_API_Lower_Case__c}>
+                                                                                            <template if:true={form_element.edf__Required__c}>
+                                                                                                <abbr class="slds-required" title="required">* </abbr>
+                                                                                            </template>
+                                                                                            {form_element.edf__Custom_Label__c}
+                                                                                        </label>
+                                                                                    </template>
+                                                                                    <lightning-input-field  
+                                                                                        required={form_element.edf__Required__c} 
+                                                                                        data-actualrequired={form_element.edf__Required__c}
+                                                                                        data-fieldkey={form_element.edf__Form_Element_Key__c}
+                                                                                        variant="label-hidden"
+                                                                                        id={form_element.edf__Field_API_Lower_Case__c} 
+                                                                                        onchange={handleInputFieldChange}
+                                                                                        data-key={form_element.edf__Field_API_Lower_Case__c} 
+                                                                                        field-name={form_element.edf__Field_API_Name__c}> 
+                                                                                    </lightning-input-field>
+                                                                                </div>
+                                                                            </template>
+                                                                        </template> 
+
+                                                                        <template if:false={form_element.hascustomlabel}>
+                                                                            <template if:false={form_element.edf__Hidden__c}>
+                                                                                <lightning-input-field  
+                                                                                    required={form_element.edf__Required__c} 
+                                                                                    data-actualrequired={form_element.edf__Required__c}
+                                                                                    data-fieldkey={form_element.edf__Form_Element_Key__c}
+                                                                                    onchange={handleInputFieldChange}
+                                                                                    data-key={form_element.edf__Field_API_Lower_Case__c} 
+                                                                                    field-name={form_element.edf__Field_API_Name__c}> 
+                                                                                </lightning-input-field>
+                                                                            </template>
+                                                                        </template>
+                                                                    </template>
+                                                                </template>
+
+                                                                <template if:true={form_element.edf__HTML_Snippet__c}>
+                                                                    <lightning-formatted-rich-text value={form_element.edf__HTML_Snippet_Code__c}></lightning-formatted-rich-text>
+                                                                </template>
+                                                                
+                                                                <input 
+                                                                    data-searchkey={form_element.edf__Record_Gear_Key_Mapping__c}
+                                                                    data-recgearkeymapping={form_element.edf__Field_API_Lower_Case__c}
+                                                                    class="gearmapping" 
+                                                                    type="hidden"
+                                                                />
+                                                                
+
+                                                                <template if:true={form_element.edf__Decision_Expression__c}>
+                                                                    <input 
+                                                                        data-gearid={form_element.edf__Form_Element_Key__c}
+                                                                        data-fieldapi={form_element.edf__Field_API_Name__c}
+                                                                        data-expression={form_element.edf__Decision_Expression__c}
+                                                                        class="decisiongear" 
+                                                                        type="hidden"
+                                                                    />
+                                                                </template>
+
+                                                            </div> <!-- FORM ELEMENT HTML END -->
+                                                            </template>
+                                                        </template>
+                                                    </div> <!-- COLUMN HTML END -->
+                                                </template>
+                                            </div> <!-- COLUMN WRAPPER HTML END -->
+                                    
+                                        </div> <!--+++++++ Custom Section Wrapper +++++++-->
+                                    </div> <!--+++++++ Custom Section Wrapper +++++++-->
+
+                                </div> <!-- CONTAINER HTML END -->
+
+                                
+                                <!-- =============================================== S E C T I O N     D I V    E N D S ================================================== -->
+
+
+                            </template>
+
+                            <div class="slds-var-m-top_medium slds-docked-form-footer stickyFooter">
+                                <lightning-button variant="brand" class="slds-m-left_x-small" type="submit" onsuccess={handleSuccess} label={label.SaveLabel}>
+                                </lightning-button>
+
+                                <template if:false={newRecordMode}>
+                                    <lightning-button variant="neutral" class="slds-m-left_x-small" type="button" onclick={handleCancel} label={label.CancelLabel}>
+                                    </lightning-button>
+                                </template>
+                            </div>
+
+                        </lightning-record-edit-form>
+                    </template>
+
+
+                    <!--=============================  VIEW MODE =============================-->
+
+                    <template if:false={editmode}>
+                        <lightning-record-view-form object-api-name={currentRecordName} record-id={recordId}>
+                            <template for:each={data.definition} for:item="section">
+
+                                <!-- =============================================== S E C T I O N     D I V    S T A R T =============================================== -->
+                                
+                                <div key={section.Id} class="slds-p-around_medium"  data-edfcontainer={section.Name} data-toggle={section.edf__Container_Key__c}> <!-- CONTAINER HTML START -->
+
+                                    
+                                    <div class="slds-section slds-is-open"><!--+++++++ Custom Section Wrapper +++++++-->
+                                        <h3 class="slds-section__title slds-theme_shade">
+                                            <span class="slds-truncate slds-p-horizontal_small" title={section.edf__Title__c}>{section.edf__Title__c}</span>
+                                        </h3>
+                                        <div aria-hidden="false" class="slds-section__content"><!--+++++++ Custom Section Wrapper +++++++-->
+                                    
+
+                                        <!--
+                                        <p>Title: {section.edf__Title__c}</p>
+                                        <p>Container Sequence:{section.edf__Container_Sequence__c}</p>
+                                        -->
+
+                                        <template if:true={section.edf__Decision_Expression__c}>
+                                            <input 
+                                                data-gearid={section.edf__Container_Key__c}
+                                                data-fieldapi={section.edf__Container_Key__c}
+                                                data-expression={section.edf__Decision_Expression__c}
+                                                class="decisiongear" 
+                                                type="hidden"
+                                            />
+                                        </template>
+
+                                        <div class="slds-grid slds-wrap slds-gutters"> <!-- COLUMN WRAPPER HTML START -->
+                                            <template for:each={section.columns} for:item="column">
+                                                <div key={column.columnkey} class={section.colsclass}> <!-- COLUMN HTML START -->
+                                                    <template if:true={column.records}>
+                                                        <template for:each={column.records} for:item="form_element">
+                                                            <div key={form_element.Id} data-edfelement={form_element.Name} data-toggle={form_element.edf__Form_Element_Key__c}> <!-- FORM ELEMENT HTML START -->
+
+                                                                <template if:false={form_element.edf__HTML_Snippet__c}>
+                                                                    <template if:true={form_element.hascustomlabel}>   
+                                                                        <template if:false={form_element.edf__Hidden__c}>
+                                                                            <div class="slds-form-element_readonly" style="padding: 5px 0px 5px 3px">
+                                                                                <!-- After Inline Edit [-->
+                                                                                <template if:true={form_element.edf__Field_API_Name__c}>
+                                                                                    <label class="slds-form-element__label slds-no-flex" for={form_element.edf__Field_API_Lower_Case__c}>
+                                                                                        <span class="slds-form__item">{form_element.edf__Custom_Label__c}</span>
+                                                                                    </label>
+                                                                                </template>
+                                                                                <template if:false={readOnlyForm}>
+                                                                                    <button onclick={handleEdit} style="margin-left:56%" class="slds-button slds-button_icon">
+                                                                                        <svg class="slds-button__icon slds-button__icon_hint" aria-hidden="true">
+                                                                                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#edit"></use>
+                                                                                        </svg>
+                                                                                        <span class="slds-assistive-text">Click to Edit</span>
+                                                                                    </button>
+                                                                                </template>
+                                                                                <lightning-output-field  class="slds-form-element_readonly"  
+                                                                                    variant="label-hidden"
+                                                                                    id={form_element.edf__Field_API_Lower_Case__c} 
+                                                                                    onchange={handleInputFieldChange}
+                                                                                    data-key={form_element.edf__Field_API_Lower_Case__c} 
+                                                                                    field-name={form_element.edf__Field_API_Name__c}> 
+                                                                                </lightning-output-field>
+
+                                                                                
+                                                                                <!-- After Inline Edit ]-->
+
+                                                                                <!-- Before inline edit
+                                                                                <template if:true={form_element.edf__Field_API_Name__c}>
+                                                                                    <label class="slds-form-element__label slds-no-flex" for={form_element.edf__Field_API_Lower_Case__c}>
+                                                                                        <span class="slds-form__item">{form_element.edf__Custom_Label__c}</span>
+                                                                                    </label>
+                                                                                </template>
+                                                                                
+                                                                                <lightning-output-field  class="slds-form-element_readonly"  
+                                                                                    variant="label-hidden"
+                                                                                    id={form_element.edf__Field_API_Lower_Case__c} 
+                                                                                    onchange={handleInputFieldChange}
+                                                                                    data-key={form_element.edf__Field_API_Lower_Case__c} 
+                                                                                    field-name={form_element.edf__Field_API_Name__c}> 
+                                                                                </lightning-output-field>
+                                                                                -->
+                                                                            </div>
+                                                                        </template>
+                                                                    </template> 
+            
+                                                                    <template if:false={form_element.hascustomlabel}>
+                                                                        <template if:false={form_element.edf__Hidden__c}>
+                                                                            <div class="slds-form__item">
+                                                                                <!-- After Inline Edit [-->
+                                                                                <lightning-output-field  class="slds-form-element_readonly"  
+                                                                                    onchange={handleInputFieldChange}
+                                                                                    data-key={form_element.edf__Field_API_Lower_Case__c} 
+                                                                                    field-name={form_element.edf__Field_API_Name__c}> 
+                                                                                </lightning-output-field>
+                                                                                <template if:false={readOnlyForm}>
+                                                                                    <button onclick={handleEdit} style="margin-left:-15px;margin-top:10px" class="slds-button slds-button_icon">
+                                                                                        <svg class="slds-button__icon slds-button__icon_hint" aria-hidden="true">
+                                                                                            <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#edit"></use>
+                                                                                        </svg>
+                                                                                        <span class="slds-assistive-text">Click to Edit</span>
+                                                                                    </button>
+                                                                                </template>
+                                                                                <!-- After Inline Edit ]-->
+                                                                                
+                                                                                <!-- Before Inline Edit
+                                                                                    <lightning-output-field  class="slds-form-element_readonly"  
+                                                                                    onchange={handleInputFieldChange}
+                                                                                    data-key={form_element.edf__Field_API_Lower_Case__c} 
+                                                                                    field-name={form_element.edf__Field_API_Name__c}> 
+                                                                                </lightning-output-field>
+                                                                                 -->
+                                                                            </div>
+                                                                        </template>
+                                                                    </template>
+                                                                </template>
+
+                                                                <template if:true={form_element.edf__HTML_Snippet__c}>
+                                                                    <lightning-formatted-rich-text value={form_element.edf__HTML_Snippet_Code__c}></lightning-formatted-rich-text>
+                                                                </template>
+                                                                
+                                                                <!--
+                                                                <template if:false={form_element.edf__Hidden__c}>
+                                                                    <lightning-output-field  class="slds-form-element_readonly"
+                                                                        onchange={handleInputFieldChange}
+                                                                        data-key={form_element.edf__Field_API_Lower_Case__c} 
+                                                                        field-name={form_element.edf__Field_API_Name__c}> 
+                                                                    </lightning-output-field>
+                                                                </template>
+                                                                -->
+
+                                                                <input 
+                                                                    data-searchkey={form_element.edf__Record_Gear_Key_Mapping__c}
+                                                                    data-recgearkeymapping={form_element.edf__Field_API_Lower_Case__c}
+                                                                    class="gearmapping" 
+                                                                    type="hidden"
+                                                                />
+
+                                                                <template if:true={form_element.edf__Decision_Expression__c}>
+                                                                    <input 
+                                                                        data-gearid={form_element.edf__Form_Element_Key__c}
+                                                                        data-fieldapi={form_element.edf__Field_API_Name__c}
+                                                                        data-expression={form_element.edf__Decision_Expression__c}
+                                                                        class="decisiongear" 
+                                                                        type="hidden"
+                                                                    />
+                                                                </template>
+
+                                                            </div> <!-- FORM ELEMENT HTML END -->
+                                                        </template>
+                                                    </template>
+                                                </div> <!-- COLUMN HTML END -->
+                                            </template>
+                                        </div> <!-- COLUMN WRAPPER HTML END -->
+
+                                    </div> <!--+++++++ Custom Section Wrapper +++++++-->
+                                </div> <!--+++++++ Custom Section Wrapper +++++++-->
+
+                                </div> <!-- CONTAINER HTML END -->
+                                <!-- =============================================== S E C T I O N     D I V    E N D S ================================================== -->
+
+
+                            </template>
+
+                            <!--
+                            <template if:false={readOnlyForm}>
+                                <div class="slds-var-m-top_medium slds-docked-form-footer stickyFooter">
+                                    <lightning-button variant="brand" class="slds-m-left_x-small" type="button" onclick={handleEdit} label={label.EditLabel}>
+                                    </lightning-button>
+                                </div>
+                            </template>
+                            -->
+
+                        </lightning-record-view-form>
+                    </template>
+                </template>
+                
+            </lightning-card>
+        </div>
+    </div>
+            
+
+
+</template>

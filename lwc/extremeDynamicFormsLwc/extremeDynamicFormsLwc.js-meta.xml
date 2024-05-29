@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__Tab</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="formversion" type="String" datasource="apex://ExtremeDynamicFormsController" label="Form Version Name" required="true" default="NFV"/>
+            <property name="usecustomtemplate" type="Boolean" label="Show Sections as Accordion" default="false"/>
+            <property name="debugmode" type="Boolean" label="Enable Debug Mode" default="false"/>
+            <property name="usercontextclass" type="String" label="User Context Decision Class" default=""/>
+        
+        </targetConfig>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="formversion" type="String" label="Form Version Name" required="true" default="NFV"/>
+            <property name="recordId" type="String" label="Record ID"></property>
+            <property name="usecustomtemplate" type="Boolean" label="Show Sections as Accordion" default="false"/>
+            <property name="debugmode" type="Boolean" label="Enable Debug Mode" default="false"/>
+            <property name="usercontextclass" type="String" label="User Context Decision Class" default=""/>
+        </targetConfig>
+    </targetConfigs>
+
+</LightningComponentBundle>

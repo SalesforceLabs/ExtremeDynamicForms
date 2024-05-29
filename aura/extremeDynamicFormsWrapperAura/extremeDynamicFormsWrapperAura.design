@@ -1,0 +1,7 @@
+<design:component >
+    <design:attribute name="formversion" required="true" label="Form Version Name" default="NFV" datasource="apex://ExtremeDynamicFormsController"/>
+    <design:attribute name="usecustomtemplate" required="false" label="Show Sections as Accordion" default="false"/>
+    <design:attribute name="debugmode" required="false" label="Enable Debug Mode" default="false"/>
+    <design:attribute name="usercontextclass" required="false" label="User Context Decision Class" default=""/>
+
+</design:component>
