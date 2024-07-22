@@ -28,7 +28,7 @@ import DEFAULT_TEMPLATE from './extremeDynamicFormsLwc.html';
 import DEBUG_MODE_TEMPLATE from './debugModeTemplate.html';
 import ACCORDIAN_TEMPLATE from './accordianTemplate.html';
 
-
+import { CurrentPageReference } from 'lightning/navigation';
 import IMAGES from "@salesforce/resourceUrl/ExtremeDynamicFormsStaticResource";
 
 import EditLabel from '@salesforce/label/c.EDF_Edit_Button_Label';
@@ -36,7 +36,6 @@ import SaveLabel from '@salesforce/label/c.EDF_Save_Button_Label';
 import CancelLabel from '@salesforce/label/c.EDF_Cancel_Button_Label';
 
 import GetUserContextDecision from "@salesforce/apex/ExtremeDynamicFormsController.getUserContextDecision";
-
 
 export default class ExtremeDynamicFormsLwc extends LightningElement {
 
@@ -64,6 +63,16 @@ export default class ExtremeDynamicFormsLwc extends LightningElement {
     decisionenginefailed = false;
 
     edfboundary = '-edfboundary'+Math.random()+'-';
+    
+
+    /* Related List [ */
+
+    //DEPRECATED [
+    @api contactColumns = [];
+    //DEPRECATED ]
+
+    /* Related List ] */
+
 
     @api recordId;
     @api formversion;
@@ -71,10 +80,18 @@ export default class ExtremeDynamicFormsLwc extends LightningElement {
     @api debugmode=false;
     @api userContextExpressionClass; //NOT USED
     @api usercontextclass;
+    @api recordTypeId;
 
     @api invokedfromexperience=false;
 
     @wire(GetUserContextDecision,{userDecisionClass: '$usercontextclass',recordId:'$recordId'}) userContextDecision;
+
+    @wire(CurrentPageReference)
+    getStateParameters(currentPageReference) {
+       if (currentPageReference && this.recordTypeId===undefined) {
+          this.recordTypeId = currentPageReference.state?.recordTypeId;
+       }
+    }
 
     /*
     dynamicMethod = "methodName"
@@ -1108,47 +1125,76 @@ export default class ExtremeDynamicFormsLwc extends LightningElement {
                 obj.url='/'+obj.Id;
             }
 
-            obj.edf__Form_Elements__r?.records.forEach(form_element=>{
-                //this.mylog('Form Element Column:',form_element?.edf__Column__c);
-                form_element.edf__Record_Gear_Key_Mapping__c = form_element.edf__Record_Gear_Key_Mapping__c?.toLowerCase();
+            /* Related List [ */
+            if(obj.edf__Related_List_Container__c){
+                let fields = [];
 
-                // New template code [
+                obj.edf__Form_Elements__r?.records.forEach(form_element=>{
 
-                if(this.invokedfromexperience){
-                    let urlString = window.location.href;
-                    let baseURL = urlString.substring(0, urlString.indexOf("/s"));
-                    form_element.url = baseURL+'/s/detail/'+form_element.Id;
-                }
-                else{
-                    form_element.url='/'+form_element.Id;
-                }
-                
-
-                if(form_element.edf__Column__c !== undefined){
-                    
-                    let colindex = form_element.edf__Column__c - 1;
-                    for(let k = obj.columns.length; k <= colindex; k++){
-                        obj.columns[k] =
-                        {
-                            columnkey: obj.Name+'-'+form_element.edf__Column__c,
-                            records:[]
-                        };
+                    if(form_element.edf__Column_Type__c?.toLowerCase() == 'link'){
+                        obj.columns.push({
+                            "label":((form_element.edf__Custom_Label__c!='' && form_element.edf__Custom_Label__c!=null && form_element.edf__Custom_Label__c!==undefined)?form_element.edf__Custom_Label__c:"Name"),"fieldName":"LinkName", 
+                            "type":"url", 
+                            typeAttributes: { label: { fieldName: form_element.edf__Field_API_Name__c }, target: '_top' }
+                        });
+                        obj.sortedby = form_element.edf__Field_API_Name__c;
+                        fields.push(form_element.edf__Field_API_Name__c);
+                    }else{
+                        obj.columns.push({
+                            "label":form_element.edf__Custom_Label__c,
+                            "fieldName":form_element.edf__Field_API_Name__c, 
+                            "type":form_element.edf__Column_Type__c?.toLowerCase(),
+                            "sortable":true
+                        });
+                        fields.push(form_element.edf__Field_API_Name__c);
                     }
-                    obj.columns[colindex].records.push(form_element);
-                }
-                
-                // New template code ]
+                });
+                obj.fields = fields.join();
+            }
+            else{
+                obj.edf__Form_Elements__r?.records.forEach(form_element=>{
+                    //this.mylog('Form Element Column:',form_element?.edf__Column__c);
+                    form_element.edf__Record_Gear_Key_Mapping__c = form_element.edf__Record_Gear_Key_Mapping__c?.toLowerCase();
+    
+                    // New template code [
+    
+                    if(this.invokedfromexperience){
+                        let urlString = window.location.href;
+                        let baseURL = urlString.substring(0, urlString.indexOf("/s"));
+                        form_element.url = baseURL+'/s/detail/'+form_element.Id;
+                    }
+                    else{
+                        form_element.url='/'+form_element.Id;
+                    }
+    
+                    if(form_element.edf__Column__c !== undefined){
+                        
+                        let colindex = form_element.edf__Column__c - 1;
+                        for(let k = obj.columns.length; k <= colindex; k++){
+                            obj.columns[k] =
+                            {
+                                columnkey: obj.Name+'-'+form_element.edf__Column__c,
+                                records:[]
+                            };
+                        }
+                        obj.columns[colindex].records.push(form_element);
+                    }
+                    
+                    // New template code ]
+    
+                    obj.colsclass = "slds-col slds-size_1-of-"+obj.columns.length;
+    
+                    if(form_element?.edf__Custom_Label__c !== undefined){
+                        form_element.hascustomlabel = true;
+                    }
+                    else{
+                        form_element.hascustomlabel = false;
+                    }
+    
+                });
+            }
+            /* Related List ] */
 
-                obj.colsclass = "slds-col slds-size_1-of-"+obj.columns.length;
-
-                if(form_element?.edf__Custom_Label__c !== undefined){
-                    form_element.hascustomlabel = true;
-                }
-                else{
-                    form_element.hascustomlabel = false;
-                }
-
-            });
             
         });
         this.mylog('Mutated Definition:',data);

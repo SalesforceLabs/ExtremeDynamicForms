@@ -164,7 +164,6 @@
         <fullName>Active__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Active</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
@@ -172,7 +171,6 @@
     <fields>
         <fullName>Form_Definition__c</fullName>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Form Definition</label>
         <referenceTo>Form_Definition__c</referenceTo>
         <relationshipName>Form_Definition_Versions</relationshipName>
@@ -186,7 +184,6 @@
         <fullName>Read_Only_Form__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Read Only Form</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>

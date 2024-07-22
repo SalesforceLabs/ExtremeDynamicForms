@@ -164,7 +164,6 @@
         <fullName>Active__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Active</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
@@ -172,7 +171,6 @@
     <fields>
         <fullName>Column_Style__c</fullName>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Column Style</label>
         <required>false</required>
         <trackTrending>false</trackTrending>
@@ -231,8 +229,17 @@
     <fields>
         <fullName>Decision_Expression__c</fullName>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Decision Expression</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Filter_Condition__c</fullName>
+        <deprecated>false</deprecated>
+        <inlineHelpText>The where clause condition to filter the related list. Note: this isn&apos;t the EDF decision expression. Use double quotes instead of single quotes.</inlineHelpText>
+        <label>Filter Condition</label>
         <length>32768</length>
         <trackTrending>false</trackTrending>
         <type>LongTextArea</type>
@@ -254,13 +261,24 @@
         <fullName>Form_Definition_Version__c</fullName>
         <deleteConstraint>Restrict</deleteConstraint>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Form Definition Version</label>
         <referenceTo>Form_Definition_Version__c</referenceTo>
         <relationshipName>Form_Containers</relationshipName>
         <required>true</required>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Object_API_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>API Name of the sobject for which the container will render the related list</inlineHelpText>
+        <label>Object API Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Reference_Page_Layout__c</fullName>
@@ -273,6 +291,27 @@
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_Field_API_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>The API name of the lookup field that relates the current object to the related object</inlineHelpText>
+        <label>Related Field API Name</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Related_List_Container__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <inlineHelpText>Check this checkbox if the container contains a related list. When checked the Form Elements under this container defines the columns in the related list</inlineHelpText>
+        <label>Related List Container</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Title__c</fullName>

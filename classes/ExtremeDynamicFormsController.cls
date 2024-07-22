@@ -49,6 +49,10 @@ public with sharing class ExtremeDynamicFormsController extends VisualEditor.Dyn
                         Decision_Expression__c,
                         Container_Sequence__c,
                         Container_Key__c,
+                        Related_List_Container__c,
+                        Object_API_Name__c,
+                        Related_Field_API_Name__c,
+                        Filter_Condition__c,
                         Form_Definition_Version__r.Read_Only_Form__c,
                         Form_Definition_Version__r.Form_Definition__r.Object_API_Name__c,
                         (   
@@ -66,7 +70,8 @@ public with sharing class ExtremeDynamicFormsController extends VisualEditor.Dyn
                                     Custom_Label__c,
                                     Read_Only__c,
                                     Required__c,
-                                    Form_Element_Key__c
+                                    Form_Element_Key__c,
+                                    Column_Type__c
                             FROM Form_Elements__r 
                             WHERE Active__c=true ORDER BY Sequence__c
                         ) 
@@ -85,9 +90,15 @@ public with sharing class ExtremeDynamicFormsController extends VisualEditor.Dyn
                 List<String> fields = new List<String>();
                 fields.add('Id');
                 for(Form_Container__c fc: fcs){
-                    for(Form_Element__c fe: fc.Form_Elements__r){
-                        if(!fields.contains(fe.field_api_name__c) && fe.field_api_name__c!=null)
-                            fields.add(fe.field_api_name__c);
+                    /** 
+                     * If container is for a related list then we don't need to query the related form elements
+                     * since those fields will be queried as part of related list component
+                     **/
+                    if(!fc.Related_List_Container__c){
+                        for(Form_Element__c fe: fc.Form_Elements__r){
+                            if(!fields.contains(fe.field_api_name__c) && fe.field_api_name__c!=null)
+                                fields.add(fe.field_api_name__c);
+                        }
                     }
                 }
 

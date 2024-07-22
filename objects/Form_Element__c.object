@@ -171,15 +171,47 @@
         <fullName>Active__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Active</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Column_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <inlineHelpText>Type of the column in the data table for related list when the parent section is configured as Related List Container</inlineHelpText>
+        <label>Column Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Text</fullName>
+                    <default>true</default>
+                    <label>Text</label>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                    <label>Email</label>
+                </value>
+                <value>
+                    <fullName>Phone</fullName>
+                    <default>false</default>
+                    <label>Phone</label>
+                </value>
+                <value>
+                    <fullName>Link</fullName>
+                    <default>false</default>
+                    <label>Link</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
         <fullName>Column__c</fullName>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Column</label>
         <required>false</required>
         <trackTrending>false</trackTrending>
@@ -215,6 +247,7 @@
         <fullName>Custom_Label__c</fullName>
         <deprecated>false</deprecated>
         <externalId>false</externalId>
+        <inlineHelpText>When the Related List Container checkbox on the parent section is checked this field is used for Label of the column in related list</inlineHelpText>
         <label>Custom Label</label>
         <length>100</length>
         <required>false</required>
@@ -225,7 +258,6 @@
     <fields>
         <fullName>Decision_Expression__c</fullName>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Decision Expression</label>
         <length>32768</length>
         <trackTrending>false</trackTrending>
@@ -282,7 +314,6 @@
     <fields>
         <fullName>HTML_Snippet_Code__c</fullName>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>HTML Snippet Code</label>
         <length>32768</length>
         <trackTrending>false</trackTrending>
@@ -293,7 +324,6 @@
         <fullName>HTML_Snippet__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>HTML Snippet</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
@@ -302,7 +332,6 @@
         <fullName>Hidden__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Hidden</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
@@ -311,7 +340,6 @@
         <fullName>Read_Only__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <inlineHelpText>Check this checkbox if the field configured for this Form Element is to be rendered as Read Only.</inlineHelpText>
         <label>Read Only</label>
         <trackTrending>false</trackTrending>
@@ -357,7 +385,6 @@
         <fullName>Required__c</fullName>
         <defaultValue>false</defaultValue>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Required</label>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
@@ -366,7 +393,6 @@
         <fullName>Section__c</fullName>
         <deleteConstraint>Restrict</deleteConstraint>
         <deprecated>false</deprecated>
-        <externalId>false</externalId>
         <label>Section</label>
         <referenceTo>Form_Container__c</referenceTo>
         <relationshipLabel>Form Elements</relationshipLabel>
@@ -420,6 +446,25 @@
         <active>true</active>
         <compactLayoutAssignment>EDF_Element_Highlight_Panel_Layout</compactLayoutAssignment>
         <label>Default</label>
+        <picklistValues>
+            <picklist>Column_Type__c</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Link</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Text</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
         <picklistValues>
             <picklist>Column__c</picklist>
             <values>

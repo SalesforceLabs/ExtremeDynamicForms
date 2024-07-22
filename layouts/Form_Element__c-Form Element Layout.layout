@@ -59,6 +59,10 @@
                 <behavior>Edit</behavior>
                 <field>HTML_Snippet__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Column_Type__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

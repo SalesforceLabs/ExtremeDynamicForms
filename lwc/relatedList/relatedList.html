@@ -1,0 +1,108 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <template if:true={state.showRelatedList}>
+        <c-related-list-new-edit-popup 
+            onrefreshdata={handleRefreshData}>
+        </c-related-list-new-edit-popup>
+        <c-related-list-delete-popup
+            onrefreshdata={handleRefreshData}>
+        </c-related-list-delete-popup>
+
+        <article class="slds-card slds-card_boundary slds-card_related-list-fix">
+            <div class="slds-card__header slds-grid slds-theme_shade" style="padding-bottom:10px">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name={state.iconName} size="small"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a href="#" class="slds-card__header-link slds-truncate" title={state.title}>
+                                <span>{state.title}</span>
+                            </a>
+                        </h2>
+                    </div>
+                    <div class="slds-no-flex">
+                        <lightning-button label="New" onclick={handleCreateRecord}></lightning-button>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body" style="margin: 0px !important;">
+                <template if:true={hasRecords}>
+                    <div class="slds-border_top">
+                        <lightning-datatable class="related-list"
+                                            onrowaction={handleRowAction}
+                                            columns={state.columns}
+                                            data={state.records}
+                                            key-field="Id"
+                                            sorted-by={state.sortedBy}
+                                            sorted-direction={state.sortedDirection}
+                                            onsort={doSorting}
+                                            hide-checkbox-column="true"
+                                            resize-column-disabled="true">
+                        </lightning-datatable> 
+                    </div>                         
+                </template>
+            </div>
+            <template if:true={hasRecords}>
+                <footer class="slds-card__footer" style="margin: -1px;">
+                    <a class="slds-card__footer-action" onclick={handleGotoRelatedList}>View All</a>
+                </footer>
+            </template>
+            
+        </article>
+        <!--
+        <lightning-layout class="slds-m-top_x-small">
+            <article class="slds-card slds-card_boundary slds-card_related-list-fix" style="margin: 10px;">
+                <div class="slds-card__header slds-grid slds-theme_shade">
+                  <header class="slds-media slds-media_center slds-has-flexi-truncate ">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name={state.iconName} size="small"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                      <h2 class="slds-card__header-title">
+                        <a class="slds-card__header-link" onclick={handleGotoRelatedList}>{state.title}</a>
+                      </h2>
+                    </div>
+                    <div class="slds-no-flex">
+                        <lightning-button label="New" onclick={handleCreateRecord}></lightning-button>
+                    </div>
+                  </header>
+                </div>
+                <template if:true={hasRecords}>
+                    <div>
+                        <lightning-datatable class="related-list"
+                                            onrowaction={handleRowAction}
+                                            columns={state.columns}
+                                            data={state.records}
+                                            key-field="Id"
+                                            onsort={doSorting}
+                                            hide-checkbox-column="true"
+                                            resize-column-disabled="true">
+                        </lightning-datatable>   
+                    </div>
+                    <footer class="slds-card__footer" style="margin: -1px;">
+                        <a onclick={handleGotoRelatedList}>View All</a>
+                    </footer>                            
+                </template>
+              </article>                       
+        </lightning-layout>
+        -->
+    </template>
+
+    <template if:true={relatedlisterror}>
+        <div class="slds-notify slds-notify_alert slds-alert_warning" role="alert">
+            <span class="slds-assistive-text">warning</span>
+            <span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small" title="Related List Error">
+                <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                    <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#warning"></use>
+                </svg>
+            </span>
+            <h2>
+                <lightning-formatted-rich-text value={errorMsg}></lightning-formatted-rich-text>
+            </h2>
+            
+        </div>
+    </template>
+   
+                                    
+</template>

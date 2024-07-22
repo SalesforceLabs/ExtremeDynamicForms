@@ -44,6 +44,21 @@ private class ExtremeDynamicFormsControllerTest {
     }
 
     @isTest
+    static void testGetUserContextDecision(){
+        Form_Definition_Version__c fdv = [Select Id, Name FROM Form_Definition_Version__c LIMIT 1];
+        Form_Element__c feTheRecord = [Select Id FROM Form_Element__c LIMIT 1];
+
+        Test.startTest();
+        try{
+            ExtremeDynamicFormsController.getUserContextDecision('userDecisionClass',feTheRecord.Id);
+        }catch(SecurityException e){
+            System.assertEquals('Class userDecisionClass is either missing or is not a valid implementation of UserContextInterface',e.getMessage());
+        }
+        Test.stopTest();
+
+    }
+
+    @isTest
     static void testGetFormMetadataIncompatibleFormVersion(){
 
         Form_Definition_Version__c fdv = [Select Id, Name FROM Form_Definition_Version__c LIMIT 1];

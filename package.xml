@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+<Package xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <fullName>Extreme Dynamic Forms</fullName>
     <apiAccessLevel>Unrestricted</apiAccessLevel>
     <auraComponents>
@@ -32,12 +32,28 @@
         <developerName>Form_Definition_Version__c.Cascade_Delete</developerName>
     </idMappings>
     <lightningComponents>
+        <isExposed xsi:nil="true"/>
+        <name>relatedListNewEditPopup</name>
+    </lightningComponents>
+    <lightningComponents>
         <isExposed>isExposed</isExposed>
         <name>extremeDynamicFormsLwc</name>
         <targets>lightning__RecordPage</targets>
         <targets>lightning__FlowScreen</targets>
         <targets>lightning__Tab</targets>
         <targets>lightning__AppPage</targets>
+    </lightningComponents>
+    <lightningComponents>
+        <isExposed xsi:nil="true"/>
+        <name>relatedListDeletePopup</name>
+    </lightningComponents>
+    <lightningComponents>
+        <isExposed xsi:nil="true"/>
+        <name>relatedList</name>
+    </lightningComponents>
+    <lightningComponents>
+        <isExposed xsi:nil="true"/>
+        <name>modal</name>
     </lightningComponents>
     <namespacePrefix>edf</namespacePrefix>
     <orgEntityFeaturePayloads>
@@ -52,6 +68,18 @@
         <feature>RecordType</feature>
         <referencedByEntity>RecordType</referencedByEntity>
         <referencedByName>Form_Element__c.Default</referencedByName>
+    </orgFeaturePayloads>
+    <orgFeaturePayloads>
+        <dependencyDetectionType>A</dependencyDetectionType>
+        <feature>Flow</feature>
+        <referencedByEntity>Flow</referencedByEntity>
+        <referencedByName>Cascade_Delete_Form_Version</referencedByName>
+    </orgFeaturePayloads>
+    <orgFeaturePayloads>
+        <dependencyDetectionType>A</dependencyDetectionType>
+        <feature>Flow</feature>
+        <referencedByEntity>Flow</referencedByEntity>
+        <referencedByName>Create_Form_Definition_Version</referencedByName>
     </orgFeaturePayloads>
     <orgFeaturePayloads>
         <dependencyDetectionType>A</dependencyDetectionType>
@@ -83,23 +111,13 @@
         <referencedByEntity>CustomObject</referencedByEntity>
         <referencedByName>Form_Definition__c</referencedByName>
     </orgFeaturePayloads>
-    <orgFeaturePayloads>
-        <dependencyDetectionType>A</dependencyDetectionType>
-        <feature>Flow</feature>
-        <referencedByEntity>Flow</referencedByEntity>
-        <referencedByName>Cascade_Delete_Form_Version</referencedByName>
-    </orgFeaturePayloads>
-    <orgFeaturePayloads>
-        <dependencyDetectionType>A</dependencyDetectionType>
-        <feature>Flow</feature>
-        <referencedByEntity>Flow</referencedByEntity>
-        <referencedByName>Create_Form_Definition_Version</referencedByName>
-    </orgFeaturePayloads>
     <types>
         <members>ExtremeDynamicFormsController</members>
         <members>ExtremeDynamicFormsControllerTest</members>
         <members>GenerateExtremeDynamicsFormsMetadata</members>
         <members>GenerateExtremeDynamicsFormsMetadataTest</members>
+        <members>RelatedListController</members>
+        <members>RelatedListControllerTest</members>
         <members>UserContextInterface</members>
         <name>ApexClass</name>
     </types>
@@ -126,9 +144,13 @@
         <members>Form_Container__c.Container_Key__c</members>
         <members>Form_Container__c.Container_Sequence__c</members>
         <members>Form_Container__c.Decision_Expression__c</members>
+        <members>Form_Container__c.Filter_Condition__c</members>
         <members>Form_Container__c.Form_Container_External_Id__c</members>
         <members>Form_Container__c.Form_Definition_Version__c</members>
+        <members>Form_Container__c.Object_API_Name__c</members>
         <members>Form_Container__c.Reference_Page_Layout__c</members>
+        <members>Form_Container__c.Related_Field_API_Name__c</members>
+        <members>Form_Container__c.Related_List_Container__c</members>
         <members>Form_Container__c.Title__c</members>
         <members>Form_Definition_Version__c.Active__c</members>
         <members>Form_Definition_Version__c.Form_Definition__c</members>
@@ -137,6 +159,7 @@
         <members>Form_Definition__c.Object_API_Name__c</members>
         <members>Form_Definition__c.Reference_Page_Layout__c</members>
         <members>Form_Element__c.Active__c</members>
+        <members>Form_Element__c.Column_Type__c</members>
         <members>Form_Element__c.Column__c</members>
         <members>Form_Element__c.Custom_Label__c</members>
         <members>Form_Element__c.Decision_Expression__c</members>
@@ -201,6 +224,10 @@
     </types>
     <types>
         <members>extremeDynamicFormsLwc</members>
+        <members>modal</members>
+        <members>relatedList</members>
+        <members>relatedListDeletePopup</members>
+        <members>relatedListNewEditPopup</members>
         <name>LightningComponentBundle</name>
     </types>
     <types>
@@ -230,6 +257,7 @@
     </types>
     <types>
         <members>ExtremeDynamicFormsStaticResource</members>
+        <members>relatedListResource</members>
         <name>StaticResource</name>
     </types>
     <types>
@@ -240,5 +268,5 @@
         <members>Form_Definition_Version__c.Cascade_Delete</members>
         <name>WebLink</name>
     </types>
-    <version>60.0</version>
+    <version>61.0</version>
 </Package>
